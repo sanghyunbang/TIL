@@ -14,3 +14,31 @@
 1. math관련 메소드
 2. 이진 탐색 mid +1 -1씩 움직여나감
 3. 실수: 분모 분자 동시 증가 / 기준점 X로 잡으면 안됨.
+X, Y = map(int, input().split())
+
+(코드 예시)
+mid_right = X
+mid_left = 0
+
+# 현재 승률 계산
+initial_ratio = int(Y * 100 / X)
+
+# X와 Y가 같으면 승률 변화가 없으므로 -1을 출력
+if X == Y:
+    print(-1)
+else:
+    while mid_left < mid_right:
+        mid = (mid_right + mid_left) // 2
+        
+        # 새로운 승률 계산
+        new_ratio = int((Y + mid) * 100 / (X + mid))
+        
+        if new_ratio == initial_ratio:
+            # 승률 변화가 없는 경우 mid를 증가시키기 위해 left를 이동
+            mid_left = mid + 1
+        else:
+            # 승률 변화가 발생하면 right를 조정하여 탐색 범위를 줄임
+            mid_right = mid
+            
+    # 최종적으로 승률이 변화하는 지점의 mid 출력
+    print(mid_right)
