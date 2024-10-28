@@ -3,3 +3,4 @@
 1. list()
 2. .count()
 3. .upper.count()
+4. == : True / False 관련 연산자
