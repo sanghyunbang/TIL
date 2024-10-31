@@ -55,6 +55,14 @@ else:
 4. list 추가하는 법 : list.append(값)
 
 
+제목: 99클럽 코테 스터디 3일차 TIL + 오늘의 학습 키워드
+
+# 비기너
+
+배운 내용
+1. deque
+2. while
+3. leftpop()
 
 
 
