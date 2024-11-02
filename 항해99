@@ -122,7 +122,71 @@ morse = input().split()
 for code in morse:
     print(morse_code[code], end="")
 
+제목: 99클럽 코테 스터디 5일차 TIL + 오늘의 학습 키워드
 
+1) 내코드 1
+data = list(input().split())
+number = int(data[0])
+
+STRAWBERRY_NUM = 0
+BANANA_NUM = 0
+LIME_NUM = 0
+PLUM_NUM = 0
+
+for i in range(number):
+    if data[2*i+1] == "STRAWBERRY":
+        STRAWBERRY_NUM += int(data[2*i+2])
+
+    elif data[2*i+1] == "BANANA":
+        BANANA_NUM += int(data[2*i+2])
+
+    elif data[2*i+1] == "LIME":
+        LIME_NUM += int(data[2*i+2])
+
+    elif data[2*i+1] == "PLUM":
+        PLUM_NUM += int(data[2*i+2])
+
+if STRAWBERRY_NUM or BANANA_NUM or LIME_NUM or PLUM_NUM == 5:
+    print("YES")
+
+else:
+    print("NO")
+
+2) 코드 2
+
+import sys
+input = sys.stdin.read
+
+# 모든 입력을 한 번에 받아서 줄 단위로 분리
+data = input().splitlines()
+number = int(data[0])  # 첫 번째 줄의 카드 개수
+
+# 과일 개수 변수 초기화
+STRAWBERRY_NUM = 0
+BANANA_NUM = 0
+LIME_NUM = 0
+PLUM_NUM = 0
+
+# 카드 수만큼 반복하며 각 줄의 과일 정보 처리
+for i in range(1, number + 1):
+    fruit, count = data[i].split()  # 과일 이름과 개수를 분리
+    count = int(count)
+
+    # 과일 이름에 따라 개수 누적
+    if fruit == "STRAWBERRY":
+        STRAWBERRY_NUM += count
+    elif fruit == "BANANA":
+        BANANA_NUM += count
+    elif fruit == "LIME":
+        LIME_NUM += count
+    elif fruit == "PLUM":
+        PLUM_NUM += count
+
+# 정확히 5인 과일이 하나라도 있는 경우 'YES' 출력
+if STRAWBERRY_NUM == 5 or BANANA_NUM == 5 or LIME_NUM == 5 or PLUM_NUM == 5:
+    print("YES")
+else:
+    print("NO")
 
 
 
