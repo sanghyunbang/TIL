@@ -189,8 +189,87 @@ else:
     print("NO")
 
 
+제목: 99클럽 코테 스터디 8일차 TIL + 오늘의 학습 키워드
 
 
+1) 맞춘 코드
+# 첫 번째 줄에 주의 개수 N
+N = int(input())
 
+# 각 교대 시간별 근무 시간을 정의
+shifts = [4, 6, 4, 10]
+
+# 근무자별 누적 근무 시간을 저장할 딕셔너리
+work_time = {}
+
+# 각 주차에 대해 반복
+for _ in range(N):
+    # 각 교대 시간대에 대해 반복
+    for shift_idx in range(4):
+        # 현재 교대 근무자의 이름을 입력받음
+        workers = input().split()
+        
+        # 각 근무자를 순회하며 근무 시간 누적
+        for worker in workers:
+            if worker != '-':  # 빈 값이 아닌 경우에만 처리
+                if worker not in work_time:
+                    work_time[worker] = 0  # 초기화
+                work_time[worker] += shifts[shift_idx]  # 근무 시간 누적
+
+# 근무자들의 총 근무 시간 목록 추출
+times = list(work_time.values())
+
+# 공평한지 여부 확인 및 출력
+if len(times) == 0:
+    print("Yes")
+else:
+    if max(times) - min(times) <= 12:
+        print("Yes")
+    else:
+        print("No")
+
+2) 틀린코드
+import sys
+
+# 여러 줄 입력을 받을 때 사용
+data = sys.stdin.read().splitlines()
+
+# 각 줄을 공백으로 나눠서 행 리스트로 변환
+rows = [line.split() for line in data[1:]]
+
+unique_names = set()
+
+for i in range(int((data[0]))*4):
+  unique_names = unique_names | set(rows[i])
+
+score_hash = {element : 0 for element in unique_names }
+
+for i in range(7):
+  for j in range(int(data[0])*4):
+    if j % 4 == 0 or j % 4 == 2:
+        if rows[j][i] in score_hash:
+            item = rows[j][i]
+            score_hash[item] = score_hash[item] + 4
+    
+    elif j % 4 == 1:
+        if rows[j][i] in score_hash:
+            item = rows[j][i]
+            score_hash[item] = score_hash[item] + 6
+
+    elif j % 4 == 3:
+        if rows[j][i] in score_hash:
+            item = rows[j][i]
+            score_hash[item] = score_hash[item] + 10
+
+del score_hash['-']
+
+if max(score_hash.values()) - min(score_hash.values()) <= 12:
+  print("Yes")
+
+else:
+  print("No")
+
+이유: 예외사항
+특정 주의 모든 시간대가 비어있는 경우 틀린 코드는 value error
 
 
