@@ -273,3 +273,95 @@ else:
 특정 주의 모든 시간대가 비어있는 경우 틀린 코드는 value error
 
 
+##### 14일째######
+
+****주의점 : input 형식에 따라서 시간이 초과하는 경우가 발생
+
+import sys
+from collections import deque
+
+input = sys.stdin.read  # sys.stdin.read로 한 번에 입력을 받음
+deq = deque()
+
+# 입력을 한꺼번에 받아서 줄 단위로 분리
+commands = input().splitlines()
+N = int(commands[0])  # 첫 번째 줄은 명령 개수
+
+result = []  # 출력을 모아둘 리스트
+
+for i in range(1, N + 1):  # 두 번째 줄부터 명령 실행
+    order = commands[i].split()
+
+    if order[0] == "push":
+        deq.append(int(order[1]))
+
+    elif order[0] == "pop":
+        result.append(deq.popleft() if deq else -1)
+
+    elif order[0] == "empty":
+        result.append(1 if not deq else 0)
+
+    elif order[0] == "size":
+        result.append(len(deq))
+
+    elif order[0] == "front":
+        result.append(deq[0] if deq else -1)
+
+    elif order[0] == "back":
+        result.append(deq[-1] if deq else -1)
+
+# 최종적으로 한 번에 출력
+sys.stdout.write("\n".join(map(str, result)) + "\n")
+
+**** 시간 초과 코드 예시
+
+from collections import deque
+
+# 첫 번째 줄의 명령 개수 N
+
+N = int(input())
+
+# 각 행별 명령 수행
+deq = deque()
+
+
+for _ in range(N):
+
+  order = input().split()
+
+  if order[0] == "push":
+    deq.append(int(order[1]))
+
+
+  elif order[0] == "pop":
+    if len(deq) == 0:
+      print(-1)
+      
+    else:
+      print(int(deq.popleft()))
+
+  elif order[0] == "empty":
+    if len(deq) == 0:
+      print(1)
+
+    else:
+      print(0)
+
+  elif order[0] == "size":
+    print(len(deq))
+
+  elif order[0] == "front":
+    if len(deq) == 0:
+      print(-1)
+
+    else:
+      print(int(deq[0]))
+
+
+  elif order[0] == "back" :
+    if len(deq) == 0:
+      print(-1)
+
+    else:
+      print(int(deq[-1]))
+
