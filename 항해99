@@ -365,3 +365,52 @@ for _ in range(N):
     else:
       print(int(deq[-1]))
 
+
+##########15일째#########
+
+코드를 간소하게 만드는 법이 중요 -> 런타임 에러
+
+1) 런타임 에러 초래한 코드
+
+def solution(arr):
+    answer = []
+    idx = []
+    idx_num = 0
+    for i in range(len(arr)-1):
+
+      if arr[i]==arr[i+1]:
+        idx_num += 1
+
+        if idx_num == len(arr)-1:
+          idx.append(idx_num)
+
+
+        else:
+          pass
+
+      elif arr[i] != arr[i+1]:
+        idx.append(idx_num)
+        idx_num += 1
+
+        if idx_num == len(arr)-1:
+          idx.append(idx_num+1)
+
+
+        else:
+          pass
+
+    for j in idx:
+      answer.append(arr[j])
+
+    return answer
+
+
+2) 간소화
+
+def solution(arr):
+    answer = []
+    for i in range(len(arr)):
+        # 첫 번째 요소는 무조건 추가
+        if i == 0 or arr[i] != arr[i - 1]:
+            answer.append(arr[i])
+    return answer
