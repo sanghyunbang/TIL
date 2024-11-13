@@ -440,7 +440,7 @@ sequence = list(input())
 
 for i in range(N):
   if sequence[i] in '123456789':
-    answer += 1
+    answer += 1 
 
   elif sequence[i] == 'L':
     prep_L +=1 
@@ -469,3 +469,32 @@ for i in range(N):
 
 print(answer)
   
+******추가 미들클래스
+
+복습 slicing / sys , splitlines() ,split()
+거꾸로 range : range(N, 0 , -1) 
+주의점: 끝나는 부분 0 과 -1. 전자의 경우 index 1 까지 후자는 index 0 까지
+
+
+
+## 우선 오름차순이 깨진 것을 찾는다.
+
+import sys
+
+input = sys.stdin.read # 한 번에 입력 받기
+
+commands = input().splitlines() # 입력을 한 번에 받아서 줄 단위로 분리
+N = int(commands[0])
+
+new_commands = commands[1:]
+point = [int(elem) for elem in new_commands ]
+
+answer = 0
+
+for i in range(N-1, 0, -1):
+  for j in range(i-1, -1, -1):
+    while point[i] <= point[j]:
+      point[j] = point[j] - 1
+      answer += 1 
+
+print(answer)
