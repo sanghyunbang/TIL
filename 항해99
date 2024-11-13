@@ -414,3 +414,58 @@ def solution(arr):
         if i == 0 or arr[i] != arr[i - 1]:
             answer.append(arr[i])
     return answer
+
+
+##########17일###########
+
+1. if i in '123456' 식으로도 표현 가능
+2. 단락 띄울 때는 ( ) 사용
+예) if i == '1' or i == '2' 를
+if ( i == '1' or
+ i== '2' ) 이런식
+
+나의 답안
+
+# 사전 기술 / 본 기술
+# (L-R), (S-K)
+
+answer = 0
+
+N = int(input())
+prep_L = 0
+prep_S = 0
+
+
+sequence = list(input())
+
+for i in range(N):
+  if sequence[i] in '123456789':
+    answer += 1
+
+  elif sequence[i] == 'L':
+    prep_L +=1 
+
+
+  elif sequence[i] == 'S':
+    prep_S += 1
+
+
+  elif sequence[i] == 'R':
+    if prep_L > 0:
+      answer += 1
+      prep_L -= 1
+
+    else:
+      break
+
+  if sequence[i] == 'K':
+
+    if prep_S > 0:
+      answer += 1
+      prep_S -= 1
+
+    else:
+      break
+
+print(answer)
+  
