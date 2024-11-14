@@ -498,3 +498,108 @@ for i in range(N-1, 0, -1):
       answer += 1 
 
 print(answer)
+
+
+###########################################################18일#########################################################
+
+
+1. 잘못 만든 코드
+
+wating_num = 0
+wating_list = [] # (wating_num, last_customer)
+N = int(input())
+last_customer = '1'
+
+
+for i in range(N):
+
+  user_info = input()
+  info = user_info.split()
+
+  if info[0] == '1':
+    wating_num += 1
+    last_customer = info[1] 
+    wating_list.append((wating_num, info[1])) 
+   
+
+  else:
+    wating_num -= 1
+
+answer = ''
+
+for j in range(len(wating_list)-1):
+  if int(wating_list[j][0]) > int(wating_list[j+1][0]):
+    answer = wating_list[j]
+
+  elif int(wating_list[j][0]) < int(wating_list[j+1][0]):
+    answer = wating_list[j+1]
+
+  elif int(wating_list[j][0]) == int(wating_list[j+1][0]):
+    if int(wating_list[j][1]) > int(wating_list[j+1][1]):
+      answer = wating_list[j+1]
+    
+    else:
+      answer = wating_list[j]
+
+result = f"{answer[0]} {answer[1]}"
+print(result)
+
+
+2) 정답코드
+
+import sys
+input = sys.stdin.read
+
+wating_num = 0
+wating_list = []  # (wating_num, last_customer)
+data = input().splitlines()
+N = int(data[0])  # 첫 번째 줄: 명령 수
+last_customer = None
+
+# 첫 번째 for 구문: wating_list에 모든 대기 상태 기록
+for i in range(1, N + 1):
+    info = data[i].split()
+
+    if info[0] == '1':  # 유형 1: 학생이 줄을 섬
+        wating_num += 1
+        last_customer = info[1]
+        wating_list.append((wating_num, last_customer))
+
+    else:  # 유형 2: 학생이 줄에서 빠짐
+        wating_num -= 1
+
+# 두 번째 for 구문: 최대 대기 수와 마지막 학생 번호 찾기
+max_wating_num = 0
+answer = None
+
+for state in wating_list:
+    num = int(state[0])
+    student = int(state[1])
+
+    if num > max_wating_num:
+        max_wating_num = num
+        answer = (num, student)
+    elif num == max_wating_num:
+        if answer is None or student < answer[1]:
+            answer = (num, student)
+
+# 최종 결과 출력
+if answer is not None:
+    result = f"{answer[0]} {answer[1]}"
+    print(result)
+else:
+    print("No valid answer found")
+
+
+**차이점 요약
+이 예제에서처럼, 연속된 상태만 비교할 경우 중간에 다른 최대 대기 상태가 있을 때 이를 놓칠 수 있습니다.
+반면 모든 상태를 순회하며 비교하면 전체 상태를 모두 검토하므로 항상 최댓값을 정확히 찾을 수 있습니다.
+이런 이유로, wating_list의 모든 상태를 순회하며 비교하는 방식이 이 문제에 더 적합합니다.
+
+(구체적인 예제)
+wating_list = [(1, '3'), (3, '2'), (2, '5'), (3, '4'), (3, '6'), (3, '1')]
+이 예제에서 최댓값을 찾으려면 다음 조건을 만족하는 대기열 상태를 찾아야 합니다.
+
+대기열 수(wating_num)가 가장 큰 상태를 찾아야 합니다.
+대기열 수가 동일할 경우, last_customer가 가장 작은 학생 번호가 선택되어야 합니다.
+이 예제의 최댓값은 (3, '1')입니다. 이 값은 모든 상태를 순회하며 비교하는 방식으로만 정확히 찾을 수 있습니다.
