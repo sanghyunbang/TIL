@@ -123,9 +123,10 @@ print(result)
 ---
 
 ## 📖 주요 개념 정리
+
 ### 이분 탐색
 - **정의**: 정렬된 범위에서 값을 효율적으로 탐색하는 방법.
-- **시간 복잡도**: \(O(\log(	ext{range}))\)
+- **시간 복잡도**: O(log(range))
 
 ### 구간 나누기 (Partitioning)
 - **정의**: 특정 기준을 기준으로 데이터를 여러 구간으로 나누는 방법.
@@ -134,5 +135,6 @@ print(result)
 ---
 
 ## 🔍 참고
-- 시간 복잡도: \(O(N \cdot \log(	ext{sum(lectures)} - 	ext{max(lectures)}))\)
+- 시간 복잡도: O(N * log(sum(lectures) - max(lectures)))
 - Greedy와 Binary Search를 결합한 효율적인 탐색 방법.
+
