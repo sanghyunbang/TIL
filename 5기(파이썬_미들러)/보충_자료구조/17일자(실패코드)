@@ -1,0 +1,146 @@
+input_data = """5
+-2 4 -99 -1 98"""
+
+data = input_data.strip().split("\n")
+
+# 입력 처리
+liquid_num = int(data[0])
+character_list = list(map(int, data[1].split()))  # 용액특성 리스트로 처리
+character_list.sort()
+
+# 음수 양수로 리스트 쪼개기
+index = 0
+for i in range(liquid_num):
+
+   if character_list[i] < 0:      #해당 while구문을 마치고 나오면 마지막 음수 index도출
+     index += 1
+
+character_list_minus = character_list[:index]
+character_list_plus = character_list[index:]
+
+## 바로 옆 끼리 비교 O(M)
+
+#1-1단계 start세팅 : minus setting
+one_check_minus=0
+if len(character_list_minus)>=2:
+  start_Minus_gap = character_list_minus[1]-character_list_minus[0]
+
+elif len(character_list_minus)==1:
+  start_Minus_gap = character_list_minus[0]
+  one_check_minus = 1
+
+else:
+  start_Minus_gap = False
+
+
+#1-2단계 start세팅 : plus setting
+one_check_plus=0
+
+if len(character_list_plus)>=2:
+  start_Plus_gap= character_list_plus[1]-character_list_plus[0]
+
+elif len(character_list_plus)==1:
+  start_Plus_gap = character_list_plus[0]
+  one_check_plus=1
+
+else:
+  start_Plus_gap = False
+
+
+# 2-1단계: 직접비교(minus)
+candi_indexForMin = 0
+if start_Minus_gap == False or one_check_minus == 1:
+    start_Minus_gap = float('inf')
+
+else:
+  for i in range(len(character_list_minus)-1):
+    if character_list_minus[i+1]-character_list_minus[i] > start_Minus_gap:
+      start_Minus_gap = character_list_minus[i+1] - character_list_minus[i]
+      candi_indexForMin = i
+
+# 2-2단계: 직접비교(plus)
+candi_indexForMax = 0
+if start_Plus_gap == False or one_check_plus == 1:
+    start_Plus_gap = float('inf')
+
+else:
+  for i in range(len(character_list_plus)-1):
+    if character_list_plus[i+1]-character_list_plus[i] > start_Plus_gap:
+      start_Plus_gap = character_list_plus[i+1] - character_list_plus[i]
+      candi_indexForMax = i
+
+candi_answer_uni =[]
+candi_gap_uni = 0
+
+if start_Plus_gap <= start_Minus_gap:
+  candi_answer_uni = character_list_plus[candi_indexForMax:candi_indexForMax+2]
+  candi_gap_uni =  start_Plus_gap
+else:
+  candi_answer_uni = character_list_minus[candi_indexForMin:candi_indexForMin+2]
+  candi_gap_uni =  start_Minus_gap
+
+# 결과: 최적 candi_gap_uni과 이를 위한 값이 candi_answer_uni 리스트에 저장
+
+
+## 음수와 양수 값을 비교 O(N*log(M))
+
+answer_list = []
+answer_gap = float('inf')
+
+if start_Minus_gap == False or start_Plus_gap == False:    ## 음수 값이든 양수 값이든 하나가 없는 경우
+
+    answer_list = candi_answer_uni
+
+
+else:
+                                                 ## 음수값과 양수값이 둘다 있지만 하나가 한개 element만 가지는 경우
+    for element in character_list_minus:
+      base = abs(element)
+
+      # Binary 범위
+      min_index = 0  # 가장 시작 지점
+      max_index = len(character_list_plus)-1  # plus 리스트의 길이
+
+#      mid_index = (min_index + max_index) // 2
+
+      ## 탐색 : 특정 음수값에 가장 가까운 값의 index 찾기
+      while min_index <= max_index:
+        # mid_index 셋팅하기:
+          mid_index = (min_index + max_index) // 2
+
+          if base >= character_list_plus[mid_index]:
+            min_index = mid_index +1
+
+          else:
+            max_index = mid_index-1                    # -1을 붙이는지 아닌지 확인 요 --> 붙여야 됨
+
+      candi_answer_bi =[]
+      candi_answer_bi.append(-base)
+
+      candi_gap_bi = 0
+
+
+      if mid_index ==0 or mid_index==len(character_list_plus)-1:
+        candi_gap_bi = abs(base - character_list_plus[mid_index])
+        candi_answer_bi.append(character_list_plus[mid_index])
+
+      else:
+        candi_gap_bi_first = abs(base - character_list_plus[mid_index])
+        candi_gap_bi_second = abs(base - character_list_plus[mid_index+1])
+
+        if candi_gap_bi_first >= candi_gap_bi_second:
+          candi_gap_bi = candi_gap_bi_second
+          candi_answer_bi.append(character_list_plus[mid_index])
+
+        else:
+          candi_gap_bi = candi_gap_bi_first
+          candi_answer_bi.append(character_list_plus[mid_index+1])
+
+      if answer_gap >= candi_gap_bi:
+        answer_gap = candi_gap_bi
+        answer_list = candi_answer_bi
+
+
+
+
+print(*answer_list)
