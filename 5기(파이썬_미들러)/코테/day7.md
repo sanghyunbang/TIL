@@ -118,13 +118,13 @@ def find_min_time(n, k):
         return 0
 
     max_range = 100000
-    visited = [False] * (max_range + 1)
+    visited = [False] * (max_range + 1) # 0번째 인덱스를 사용 안하고, 1부터 시작할 거라 +1
     queue = deque([(n, 0)]) # n은 시작지점, 0은 현재시간
 
     while queue:
         current, time = queue.popleft()
 
-        for next_pos in (current - 1, current + 1, current * 2): # 현재 위치에서 이동가능한 모든 경로를 추가 / 해당 경로는 동일한 '시간 단위'
+        for next_pos in (current - 1, current + 1, current * 2): # 현재 위치에서 이동가능한 모든 경로 / 해당 경로, 동일 시간
             if 0 <= next_pos <= max_range and not visited[next_pos]:
                 if next_pos == k:
                     return time + 1
