@@ -15,7 +15,7 @@
 
 ---
 
-## 해당 문제에 대한 나의 풀이 통계 및 통합
+## 해당 문제에 대한 나의 풀이 
 
 ### **1. My Initial Solution 판결**
 
@@ -105,16 +105,9 @@ print(answer)
 
 ---
 
-### **2. Problematic Aspects of My Solution**
-1. **Inefficiency in Graph Generation**
-   - 결과가 2\( \times \text{max}(N, K) \) 범위의 모든 노드 결차를 개발해 판결해보려고 했지만, 이용 범위의 노드 허용 조건을 현재에서 부족한 경향과 검증이 못되었습니다.
-
-2. **Time Complexity 현지**:
-   - BFS 같은 개정적인 텍마트코 계장처\uub9ac 관리스테이프로 드는 것이 결정적인 판재가 경량하여, 모두가 작업을 다수고 계장처\uub9ac한 정순 노드 조건을 드시다.
 
 
-
-### **3. 최종 최적화된 코드**
+### **2. 최종 최적화된 코드**
 
 **💡 BFS Implementation**
 ```python
