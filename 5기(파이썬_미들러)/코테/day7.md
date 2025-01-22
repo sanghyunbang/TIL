@@ -17,7 +17,7 @@
 
 ## 해당 문제에 대한 나의 풀이 
 
-### **1. My Initial Solution 판결**
+### **1. My Initial Solution --> 오답**
 
 ```python
 import sys
