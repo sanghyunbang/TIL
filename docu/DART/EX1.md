@@ -156,7 +156,72 @@ void main() {
 }
 ```
 
-## 4. Additional Resources
+## 4. Enum Practice
+
+### **Exercise 10: Status Check**
+Create an `enum` for order statuses and write a function that prints a message based on the current status.
+
+```dart
+enum OrderStatus { pending, shipped, delivered, cancelled }
+
+void printStatus(OrderStatus status) {
+  switch (status) {
+    case OrderStatus.pending:
+      print('Your order is pending.');
+      break;
+    case OrderStatus.shipped:
+      print('Your order has been shipped.');
+      break;
+    case OrderStatus.delivered:
+      print('Your order has been delivered.');
+      break;
+    case OrderStatus.cancelled:
+      print('Your order has been cancelled.');
+      break;
+  }
+}
+
+void main() {
+  printStatus(OrderStatus.shipped);
+}
+```
+
+## 5. Optional Parameter Practice
+
+### **Exercise 11: Greet Function (Basic)**
+Create a function with optional parameters that greets a user.
+
+```dart
+void greet(String name, [String? message]) {
+  print('Hello, $name ${message ?? ''}');
+}
+
+greet('Alice'); // Hello, Alice
+greet('Alice', 'Good morning'); // Hello, Alice Good morning
+```
+
+### **Exercise 12: Advanced Optional Parameters**
+Create a function that adds three numbers but allows for optional parameters with default values.
+
+```dart
+void addNumbers(int x, [int y = 0, int z = 0]) {
+  int sum = x + y + z;
+  print('Sum: $sum');
+  if (sum % 2 == 0) {
+    print('짝수');
+  } else {
+    print('홀수');
+  }
+}
+
+void main() {
+  addNumbers(5); // 5, 홀수
+  addNumbers(5, 10); // 15, 홀수
+  addNumbers(5, 10, 15); // 30, 짝수
+}
+```
+
+## 6. Additional Resources
 
 - [Dart Language Tour](https://dart.dev/guides/language/language-tour)
 - [DartPad (Online Editor)](https://dartpad.dev/)
